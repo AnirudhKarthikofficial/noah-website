@@ -61,65 +61,40 @@
     <div id="particles-js"></div>
 	    <div id="particles-js"></div>
     <div class="container">
-        <header>
-            <img src="images/noah.webp" height="150">
-            <h1 id="title"> Noah </h1>
-            <h2 id="subtitle">Developer</h2>
-        </header>
-        <p>Hey There, I'm Noah (Noah Is Not My Real Name, But My Real Name Is Anirudh!) I Code Just For A Hobby! 'Things Will Happen In life, But You Should Carry On.</p>
-        
-        <div class="icons">
-            <a href="https://github.com/noah-dev-codes" target="_blank">
-                <img src="https://img.icons8.com/ios-filled/50/000000/github.png" alt="GitHub">
-            </a>
-            <a href="https://discord.com/users/1335719497293758477" target="_blank">
-                <img src="https://img.icons8.com/ios-filled/50/000000/discord.png" alt="Discord">
-            </a>
-            <a href="https://noah.quantumdev.cc/work.html" target="_blank">
-                <img src="https://img.icons8.com/ios-filled/50/000000/work.png" alt="Work">
-            </a>
-                        <a href="https://noah.quantumdev.cc/Get-In-Touch.html" target="_blank">
-                <img src="https://img.icons8.com/ios-filled/50/00000/support.png" alt="Get-In-Touch">
-            </a>
-                                    <a href="https://noah.quantumdev.cc/certificate.html" target="_blank">
-                <img src="https://img.icons8.com/ios-filled/50/00000/certificate.png" alt="Certificate">
-            </a> 
-            </a>
-                                    <a href="https://noah.quantumdev.cc/portfolio.html" target="_blank">
-                <img src="https://img.icons8.com/ios-filled/50/00000/portfolio.png" alt="Portfolio">
-            </a> 
-                        </a>
-                                    <a href="https://noah.quantumdev.cc/check.html" target="_blank">
-                <img src="https://img.icons8.com/ios-filled/50/00000/youtube.png" alt="Check">
-            </a> 
-            
-        </div>
-        <div id="discord" class="lanyard-img">
-<a href="https://discord.com/users/1335719497293758477"><img src="https://lanyard.cnrad.dev/api/1335719497293758477?bg=111184&idleMessage=I'm%20Just%20A%20Coder!&theme=dark" /></a>
-		
-		
-        </div>
-        <p> I one of the owners of <a target="_blank" href="https://discord.gg/brceFM3HSE">Starry Systems</a>, a web development company, along with <a href="#friends">My Friends</a></p>
-        <img href="images/starry.png"> 
-        <div id="friends">
-        <h3>Friends:</h3>
-        <div class="discord-widget">
-            <div class="widget-header">
-                <img src="https://quantum.is-a.dev/images/quantum.png" alt="QuantumDev's Profile" class="discord-icon">
-                <h3>QuantumDev</h3>
-            </div>
-            <p>Discord Profile: <a href="https://discord.com/users/1348440369733439629" target="_blank">Visit Profile</a></p>
-            <p>Website: <a href="https://quantumdev.cc/"target="_blank">https://quantumdev.cc</a></p>
-        </div>
-        <div class="discord-widget">
-            <div class="widget-header">
-                <img src="https://cdn.discordapp.com/avatars/913798931949965362/431425b2e5c3e2b42b061924ffd90004.webp" alt="pfp" class="discord-icon">
-                <h3>MeowCat</h3>
-            </div>
-            <p>Discord Profile: <a href="https://discord.com/users/913798931949965362" target="_blank">Visit Profile</a></p>
-            <p>Website: <a href="https://meowcat.ct.ws" target="_blank">https://meowcat.ct.ws</a></p>
-        </div>
-        </div>
+ <h1>Check if I uploaded a new YouTube video</h1>
+  <button onclick="checkLatestVideo()">Check Now</button>
+  <div id="status"></div>
+  <div id="videoContainer"></div>
+
+  <script>
+    async function checkLatestVideo() {
+      const apiKey = 'AIzaSyAzUvm3BHSe5PFLtmppcQHXTxT8fsc6SAE';
+      const channelId = 'UC8DyxMsHBk2ZHe3pKvLnKkA';
+
+      const apiUrl = `https://www.googleapis.com/youtube/v3/search?key=${apiKey}&channelId=${channelId}&part=snippet,id&order=date&maxResults=1`;
+
+      try {
+        const response = await fetch(apiUrl);
+        const data = await response.json();
+
+        if (data.items && data.items.length > 0) {
+          const video = data.items[0];
+          const videoId = video.id.videoId;
+          const videoTitle = video.snippet.title;
+
+          document.getElementById("status").textContent = `🎉 Latest video: ${videoTitle}`;
+          document.getElementById("videoContainer").innerHTML = `
+            <iframe src="https://www.youtube.com/embed/${videoId}" allowfullscreen></iframe>
+          `;
+        } else {
+          document.getElementById("status").textContent = "No videos found.";
+        }
+      } catch (error) {
+        console.error('Error fetching video:', error);
+        document.getElementById("status").textContent = "Error fetching video.";
+      }
+    }
+  </script>
         
     <script>
         particlesJS("particles-js", {
@@ -191,7 +166,7 @@
     <div class="popup-content">
         <span class="close">&times;</span>
         <div style="color: black;" id="popupContent">
-         <p xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/"><a property="dct:title" rel="cc:attributionURL" href="https://noah.quantumdev.cc/">Noah's Website</a> by <a rel="cc:attributionURL dct:creator" property="cc:attributionName" href="https://starrysystems.quantumdev.cc/">Starry Systems Developers</a> is licensed under <a href="https://creativecommons.org/licenses/by-nd/4.0/?ref=chooser-v1" target="_blank" rel="license noopener noreferrer" style="display:inline-block;">Creative Commons Attribution-NoDerivatives 4.0 International<img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1" alt=""><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1" alt=""><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/nd.svg?ref=chooser-v1" alt=""></a></p>
+        <p xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/"><a property="dct:title" rel="cc:attributionURL" href="https://noah.quantumdev.cc/">Noah's Website</a> by <a rel="cc:attributionURL dct:creator" property="cc:attributionName" href="https://starrysystems.quantumdev.cc/">Starry Systems Developers</a> is licensed under <a href="https://creativecommons.org/licenses/by-nd/4.0/?ref=chooser-v1" target="_blank" rel="license noopener noreferrer" style="display:inline-block;">Creative Commons Attribution-NoDerivatives 4.0 International<img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1" alt=""><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1" alt=""><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/nd.svg?ref=chooser-v1" alt=""></a></p>
          <a href="//www.dmca.com/Protection/Status.aspx?ID=2f1b81a1-b773-4407-8bc6-da1fd3b7fb21" title="DMCA.com Protection Status" class="dmca-badge"> <img src ="https://images.dmca.com/Badges/dmca_protected_sml_120n.png?ID=2f1b81a1-b773-4407-8bc6-da1fd3b7fb21"  alt="DMCA.com Protection Status" /></a>  <script src="https://images.dmca.com/Badges/DMCABadgeHelper.min.js"> </script>
           <h5>Made with ♥︎ by Starry Systems Developers!</h5>
         </div>
