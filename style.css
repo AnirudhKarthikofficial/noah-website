@@ -1,3 +1,74 @@
-.container {
-    background-color: #191724;
-}
+
+      body {
+        height: 100vh;
+        background-color: #121212;
+        color: #ffffff;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        text-align: center;
+        padding: 20px;
+      }
+  
+      .rainbow-text {
+        font-size: 3.5rem;
+        font-weight: 700;
+        background: linear-gradient(90deg,
+          #ff6ec4, #7873f5, #4ADEDE, #C2FFAD, #ff6ec4
+        );
+        background-size: 400%;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        animation: rainbowFlow 10s linear infinite;
+      }
+  
+      @keyframes rainbowFlow {
+        0% { background-position: 0% 50%; }
+        100% { background-position: 100% 50%; }
+      }
+      #pic {
+        border-radius: 300px;
+        background: #181818;
+      }
+      .subtitle {
+        display: inline-block;
+        font-size: 2.5rem;
+        color: #cccccc;
+        margin-top: 16px;
+        max-width: 700px;
+        line-height: 1.6;
+        white-space: nowrap; /* prevents line break */
+      }      
+      .rainbow-text-subtitle {
+        font-size: inherit;
+        font-weight: inherit;
+        line-height: inherit;
+        color: transparent;
+        background: linear-gradient(90deg,
+          #ff6ec4, #7873f5, #4ADEDE, #C2FFAD, #ff6ec4
+        );
+        background-size: 400%;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        animation: rainbowFlow 10s linear infinite;
+      
+        display: inline-block;       /* changed from inline */
+        vertical-align: baseline;    /* align with text baseline */
+        position: relative;
+        top: -1px;                   /* manually nudge up to align */
+      }
+      a {
+        color: white;
+        text-decoration: bold;
+      }
+      footer {
+        margin-top: auto;
+        text-align: center;
+        padding: 10px;
+        font-size: 0.9rem;
+        color: #ccc;
+      }
+      
+      
