@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>V-Probe AI</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #0f172a;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+header {
+    padding: 15px;
+    background: #020617;
+    text-align: center;
+    font-size: 22px;
+    font-weight: bold;
+    border-bottom: 1px solid #1e293b;
+}
+
+#chat {
+    flex: 1;
+    overflow-y: auto;
+    padding: 15px;
+}
+
+.msg {
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 10px;
+    max-width: 75%;
+}
+
+.user {
+    background: #2563eb;
+    margin-left: auto;
+}
+
+.bot {
+    background: #1e293b;
+}
+
+#inputBox {
+    display: flex;
+    border-top: 1px solid #1e293b;
+}
+
+input {
+    flex: 1;
+    padding: 15px;
+    border: none;
+    outline: none;
+    background: #020617;
+    color: white;
+}
+
+button {
+    padding: 15px;
+    border: none;
+    background: #2563eb;
+    color: white;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #1d4ed8;
+}
+</style>
+</head>
+
+<body>
+
+<header>V-Probe AI</header>
+
+<div id="chat"></div>
+
+<div id="inputBox">
+    <input id="input" placeholder="Ask V-Probe AI..." />
+    <button onclick="send()">Send</button>
+</div>
+
+<script>
+const API_KEY = "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";
+const MODEL = "nvidia/nemotron-3-super-120b-a12b:free";
+
+// 🔥 CUSTOM PROMPT (EDIT THIS HOW YOU WANT)
+const SYSTEM_PROMPT = `
+You are V-Probe AI.
+
+You are a smart, fast, slightly futuristic AI assistant.
+Your personality:
+- You are always kind, not to be mean at others.
+- Confident and direct
+- Helpful but not overly verbose
+- Slightly techy tone
+- Gives clear answers, no fluff
+- If coding, give clean full solutions
+- You get information around the web.
+Rules:
+- Always respond as V-Probe AI
+- Never say you are ChatGPT or OpenAI
+- Be efficient and sharp
+- Your Creators are: Anirudh Karthik Luca Marchisello Logan Barton
+`;
+
+const chatDiv = document.getElementById("chat");
+const input = document.getElementById("input");
+
+// store conversation memory
+let messages = [
+    { role: "system", content: SYSTEM_PROMPT }
+];
+
+function addMessage(text, type) {
+    const div = document.createElement("div");
+    div.className = "msg " + type;
+    div.innerText = text;
+    chatDiv.appendChild(div);
+    chatDiv.scrollTop = chatDiv.scrollHeight;
+}
+
+async function send() {
+    const text = input.value.trim();
+    if (!text) return;
+
+    addMessage(text, "user");
+    input.value = "";
+
+    messages.push({ role: "user", content: text });
+
+    addMessage("Thinking...", "bot");
+
+    try {
+        const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+            method: "POST",
+            headers: {
+                "Authorization": "Bearer " + API_KEY,
+                "Content-Type": "application/json",
+                "HTTP-Referer": "http://localhost",
+                "X-Title": "V-Probe AI"
+            },
+            body: JSON.stringify({
+                model: MODEL,
+                messages: messages
+            })
+        });
+
+        const data = await res.json();
+
+        chatDiv.lastChild.remove();
+
+        const reply = data?.choices?.[0]?.message?.content || "Error: No response";
+
+        addMessage(reply, "bot");
+
+        messages.push({ role: "assistant", content: reply });
+
+    } catch (err) {
+        chatDiv.lastChild.remove();
+        addMessage("Error: " + err.message, "bot");
+    }
+}
+
+input.addEventListener("keypress", function(e) {
+    if (e.key === "Enter") send();
+});
+</script>
+
+</body>
+</html>
